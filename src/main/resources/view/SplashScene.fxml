@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="root" prefHeight="315.0" prefWidth="532.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.SplashSceneController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="344.0" layoutX="94.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="344.0" />
+      <ImageView fitHeight="340.0" fitWidth="532.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logo-no-background.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
