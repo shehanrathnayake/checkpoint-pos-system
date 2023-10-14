@@ -15,8 +15,10 @@ public class LoginSceneController {
     public void btnLoginOnAction(ActionEvent actionEvent) {
 
     }
-
-
+    private boolean isDataValid() {
+        if (true) {}
+            return true;
+    }
 
     public void btnCancelOnAction(ActionEvent actionEvent) {
         System.exit(0);
