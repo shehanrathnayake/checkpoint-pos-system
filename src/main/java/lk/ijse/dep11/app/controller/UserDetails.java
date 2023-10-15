@@ -12,4 +12,5 @@ public class UserDetails {
     public static void setLoggedUser(User loggedUser) {
         UserDetails.loggedUser = loggedUser;
     }
+
 }

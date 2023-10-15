@@ -1,11 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.AdminDashboardSceneController">
+<AnchorPane prefHeight="874.0" prefWidth="1283.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.AdminDashboardSceneController">
    <children>
-      <Label fx:id="lblLoggedUserName" layoutX="41.0" layoutY="33.0" text="Label" />
+      <Label fx:id="lblLoggedUserName" layoutX="458.0" layoutY="495.0" text="Label" />
+      <HBox alignment="CENTER_RIGHT" layoutX="1010.0" layoutY="24.0" prefHeight="75.0" prefWidth="276.0" spacing="20.0" AnchorPane.rightAnchor="15.0">
+         <children>
+            <ImageView fx:id="imgProfileImage" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/male-avatar.jpg" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="75.0" prefWidth="145.0" spacing="2.0">
+               <children>
+                  <Label fx:id="lblUserId" prefHeight="18.0" prefWidth="145.0" text="U0001" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="lblUserName" prefHeight="17.0" prefWidth="152.0" text="Shehan" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="27.0" prefWidth="26.0" />
+         </children>
+      </HBox>
+      <Label alignment="CENTER" layoutX="21.0" layoutY="880.0" prefHeight="16.0" prefWidth="1245.0" text="Copyright 2023 Shehan Rathnayake. All Rights Reserved." textAlignment="CENTER">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="48.0" prefHeight="75.0" prefWidth="416.0" spacing="15.0" AnchorPane.leftAnchor="15.0">
+         <children>
+            <ImageView fx:id="imgViewLogo" fitHeight="67.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo-no-border.png" />
+               </image>
+            </ImageView>
+            <Label text="PLACE ORDERS" textFill="#2d12ff">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <MenuBar layoutX="6.0" layoutY="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </AnchorPane>
