@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.LoginSceneController">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="213.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="213.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="212.58139038085938">
          <image>
             <Image url="@../img/logo-no-border.png" />
          </image>

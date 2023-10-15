@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS item (
     unit_price DECIMAL(8,2) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "order" (
+CREATE TABLE IF NOT EXISTS `order` (
     order_id VARCHAR(10) PRIMARY KEY ,
     date DATE NOT NULL ,
     user_id VARCHAR(10) NOT NULL ,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS customer_order (
     order_id VARCHAR(10) ,
     CONSTRAINT pk_customer_order PRIMARY KEY (customer_id,order_id) ,
     CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ,
-    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES "order" (order_id)
+    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES `order` (order_id)
 );
 
 CREATE TABLE IF NOT EXISTS order_item (
@@ -55,5 +55,5 @@ CREATE TABLE IF NOT EXISTS order_item (
     unit_price DECIMAL(8,2) NOT NULL ,
     CONSTRAINT pk_order_item PRIMARY KEY (item_code, order_id) ,
     CONSTRAINT fk_item_code FOREIGN KEY (item_code) REFERENCES item (item_code) ,
-    CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES "order" (order_id)
+    CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES `order` (order_id)
 );

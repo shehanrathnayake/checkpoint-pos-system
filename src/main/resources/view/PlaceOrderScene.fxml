@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="892.0" prefWidth="1265.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.PlaceOrderSceneController">
+<AnchorPane fx:id="root" prefHeight="892.0" prefWidth="1265.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.PlaceOrderSceneController">
    <children>
       <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="205.0" prefHeight="59.0" prefWidth="1233.0" spacing="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="200.0">
          <children>
@@ -41,7 +41,7 @@
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cmbDescription" prefHeight="26.0" prefWidth="375.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 5;" />
+                  <TextField fx:id="txtDescription" editable="false" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="85.0" spacing="10.0">
@@ -51,7 +51,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtStock" prefHeight="24.0" prefWidth="68.0" />
+                  <TextField fx:id="txtStock" editable="false" prefHeight="24.0" prefWidth="68.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="118.0" spacing="10.0">
@@ -61,7 +61,7 @@
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtUnitPrice" prefHeight="24.0" prefWidth="150.0" />
+                  <TextField fx:id="txtUnitPrice" editable="false" prefHeight="24.0" prefWidth="150.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="85.0" spacing="10.0">
@@ -106,7 +106,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtCustomerId" />
+                  <TextField fx:id="txtCustomerId" editable="false" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="376.0" spacing="10.0">
@@ -115,7 +115,7 @@
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font></Label>
-                  <TextField fx:id="txtCustomerName" prefHeight="24.0" prefWidth="395.0" />
+                  <TextField fx:id="txtCustomerName" editable="false" prefHeight="24.0" prefWidth="395.0" />
                </children>
             </VBox>
             <Button fx:id="btnCustomerSearch" mnemonicParsing="false" onAction="#btnCustomerSearch">
@@ -143,7 +143,6 @@
       </HBox>
       <TableView fx:id="tblOrderItems" layoutX="14.0" layoutY="270.0" prefHeight="484.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="270.0">
         <columns>
-          <TableColumn prefWidth="58.0" text="No." />
           <TableColumn prefWidth="169.0" text="Item Code" />
             <TableColumn prefWidth="416.0" text="Description" />
             <TableColumn minWidth="1.0" prefWidth="78.0" text="Qty" />
@@ -172,17 +171,17 @@
             <ComboBox fx:id="cmbDiscountDecider" prefHeight="24.0" prefWidth="81.0" />
          </children>
       </HBox>
-      <Label alignment="CENTER_RIGHT" layoutX="1094.0" layoutY="111.0" prefHeight="24.0" prefWidth="161.0" text="Order ID : OD00001" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
+      <Label fx:id="lblOrderId" alignment="CENTER_RIGHT" layoutX="1094.0" layoutY="111.0" prefHeight="24.0" prefWidth="161.0" text="Order ID : OD00001" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="1094.0" layoutY="134.0" prefHeight="24.0" prefWidth="161.0" text="Date : 2023-10-14" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="135.0">
+      <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="1094.0" layoutY="134.0" prefHeight="24.0" prefWidth="161.0" text="Date : 2023-10-14" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="135.0">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblTotal" alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="813.0" prefHeight="18.0" prefWidth="231.0" text="Total : Rs. 0.00" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0">
+      <Label fx:id="lblTotal" alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="813.0" prefHeight="34.0" prefWidth="416.0" text="Total : Rs. 0.00" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
@@ -225,5 +224,10 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Button fx:id="btnNewOrder" layoutX="1116.0" layoutY="160.0" mnemonicParsing="false" onAction="#btnNewOrderOnAction" prefHeight="34.0" prefWidth="154.0" text="+ NEW ORDER" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="170.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

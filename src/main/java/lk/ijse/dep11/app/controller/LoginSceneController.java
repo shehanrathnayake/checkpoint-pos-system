@@ -56,7 +56,7 @@ public class LoginSceneController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(scenePath))));
         stage.setTitle("CheckPoint POS System");
         stage.setMaximized(true);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
         ((Stage) root.getScene().getWindow()).close();
     }
