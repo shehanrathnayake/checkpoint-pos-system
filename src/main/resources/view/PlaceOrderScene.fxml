@@ -84,7 +84,7 @@
                   <TextField fx:id="txtQty" prefHeight="24.0" prefWidth="89.0" />
                </children>
             </VBox>
-            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="24.0" prefWidth="68.0" style="-fx-background-color: #34eb89; -fx-background-radius: 5; -fx-border-color: gray; -fx-border-radius: 5;" text="ADD">
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="24.0" prefWidth="68.0" style="-fx-background-radius: 5; -fx-border-color: gray; -fx-border-radius: 5;" text="ADD">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
