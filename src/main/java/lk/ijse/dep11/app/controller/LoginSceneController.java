@@ -8,10 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import lk.ijse.dep11.app.common.UserDetails;
 import lk.ijse.dep11.app.db.UserDataAccess;
 import lk.ijse.dep11.app.tm.User;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;

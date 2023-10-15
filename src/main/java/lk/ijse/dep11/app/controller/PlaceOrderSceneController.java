@@ -9,9 +9,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lk.ijse.dep11.app.common.UserDetails;
 import lk.ijse.dep11.app.db.OrderDataAccess;
 import lk.ijse.dep11.app.tm.Item;
 import lk.ijse.dep11.app.tm.OrderItem;
@@ -28,7 +28,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 public class PlaceOrderSceneController {

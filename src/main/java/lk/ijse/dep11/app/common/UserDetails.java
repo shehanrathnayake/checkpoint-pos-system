@@ -1,4 +1,4 @@
-package lk.ijse.dep11.app.controller;
+package lk.ijse.dep11.app.common;
 
 import lk.ijse.dep11.app.tm.User;
 
