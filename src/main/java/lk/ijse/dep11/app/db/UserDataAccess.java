@@ -28,8 +28,9 @@ public class UserDataAccess {
         String lastName = rst.getString("last_name");
         String password = rst.getString("password");
         int userRoleId = rst.getInt("user_role_id");
+        String gender = rst.getString("gender");
 
-        return new User(userId, firstName, lastName, password, userRoleId);
+        return new User(userId, firstName, lastName, password, userRoleId, gender);
 
     }
 }

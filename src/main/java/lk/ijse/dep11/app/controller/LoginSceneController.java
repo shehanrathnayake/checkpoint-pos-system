@@ -37,7 +37,7 @@ public class LoginSceneController {
 //                txtPassword.selectAll();
 //            }
             else {
-                String scenePath;
+                String scenePath ="";
                 if (matchedUser.getUserRoleId() == 2) scenePath = "/view/PlaceOrderScene.fxml";
                 else scenePath = "/view/AdminDashboardScene.fxml";
                 UserDetails.setLoggedUser(matchedUser);
@@ -56,6 +56,7 @@ public class LoginSceneController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(scenePath))));
         stage.setTitle("CheckPoint POS System");
         stage.setMaximized(true);
+        stage.setResizable(false);
         stage.show();
         ((Stage) root.getScene().getWindow()).close();
     }
