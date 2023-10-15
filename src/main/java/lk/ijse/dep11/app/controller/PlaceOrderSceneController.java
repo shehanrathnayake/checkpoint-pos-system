@@ -1,10 +1,7 @@
 package lk.ijse.dep11.app.controller;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 public class PlaceOrderSceneController {
@@ -20,8 +17,14 @@ public class PlaceOrderSceneController {
     public ImageView imgViewLogo;
     public TextField txtQty;
     public Button btnAdd;
-    public ComboBox cmbCustomerId;
-    public ComboBox cmbCustomerName;
+    public TextField txtCustomerId;
+    public TextField txtCustomerName;
+    public Button btnCustomerSearch;
+    public TableView tblOrderItems;
+    public TextField txtTotalDiscount;
+    public ComboBox cmbDiscountDecider;
+    public Label lblTotal;
+    public Button btnPlaceOrder;
 
     public void btnLogoutOnAction(ActionEvent actionEvent) {
     }
@@ -30,5 +33,8 @@ public class PlaceOrderSceneController {
     }
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnCustomerSearch(ActionEvent actionEvent) {
     }
 }
