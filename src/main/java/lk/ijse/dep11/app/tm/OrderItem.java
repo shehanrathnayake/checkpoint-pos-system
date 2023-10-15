@@ -15,7 +15,7 @@ public class OrderItem implements Serializable {
     private int qty;
     private BigDecimal unitPrice;
     private BigDecimal discount;
-    private Button btnDelete;
+    private transient Button btnDelete;
 
     public BigDecimal getTotal() {
         return unitPrice.multiply(new BigDecimal(qty)).setScale(2);

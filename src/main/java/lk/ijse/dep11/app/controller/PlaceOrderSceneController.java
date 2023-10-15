@@ -15,12 +15,20 @@ import javafx.stage.StageStyle;
 import lk.ijse.dep11.app.db.OrderDataAccess;
 import lk.ijse.dep11.app.tm.Item;
 import lk.ijse.dep11.app.tm.OrderItem;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public class PlaceOrderSceneController {
@@ -86,7 +94,7 @@ public class PlaceOrderSceneController {
         });
 
         txtQty.textProperty().addListener((ov, pre, cur)->{
-            if (Integer.parseInt(cur) <= Integer.parseInt(txtStock.getText().strip())) btnAdd.setDisable(false);
+            if (cur.strip().matches("\\d+") && Integer.parseInt(cur.strip()) <= Integer.parseInt(txtStock.getText().strip())) btnAdd.setDisable(false);
             else btnAdd.setDisable(true);
         });
 
@@ -117,34 +125,70 @@ public class PlaceOrderSceneController {
 
     public void btnAddOnAction(ActionEvent actionEvent) {
         Item selectedItem = cmbItemCode.getSelectionModel().getSelectedItem();
-        String itemCode = selectedItem.getItemCode();
-        String description = selectedItem.getDescription();
-        BigDecimal unitPrice = selectedItem.getUnitPrice();
         int qty = Integer.parseInt(txtQty.getText().strip());
-        Button btnDelete = new Button("Delete");
-        OrderItem newOrderItem = new OrderItem(itemCode, description, qty, unitPrice, BigDecimal.ZERO, btnDelete);
-        tblOrderItems.getItems().add(newOrderItem);
+
+        Optional<OrderItem> optOrderItem = tblOrderItems.getItems().stream().filter(item -> selectedItem.getItemCode().equals(item.getOrderItemCode())).findFirst();
+        if(optOrderItem.isEmpty()) {
+            String itemCode = selectedItem.getItemCode();
+            String description = selectedItem.getDescription();
+            BigDecimal unitPrice = selectedItem.getUnitPrice();
+            Button btnDelete = new Button("Delete");
+            OrderItem newOrderItem = new OrderItem(itemCode, description, qty, unitPrice, BigDecimal.ZERO, btnDelete);
+            tblOrderItems.getItems().add(newOrderItem);
+
+            btnDelete.setOnAction(e->{
+                tblOrderItems.getItems().remove(newOrderItem);
+                calculateOrderTotal();
+                selectedItem.setQtyOnHand(selectedItem.getQtyOnHand() + qty);
+                btnPlaceOrder.setDisable(tblOrderItems.getItems().isEmpty());
+                cmbItemCode.getSelectionModel().clearSelection();
+            });
+        } else {
+            OrderItem orderItem = optOrderItem.get();
+            orderItem.setQty(orderItem.getQty() + qty);
+            tblOrderItems.refresh();
+        }
+
         selectedItem.setQtyOnHand(selectedItem.getQtyOnHand() - qty);
         cmbItemCode.getSelectionModel().clearSelection();
 
-        btnDelete.setOnAction(e->{
-            tblOrderItems.getItems().remove(newOrderItem);
-            calculateOrderTotal();
-            selectedItem.setQtyOnHand(selectedItem.getQtyOnHand() + qty);
-            btnPlaceOrder.setDisable(tblOrderItems.getItems().isEmpty());
-            cmbItemCode.getSelectionModel().clearSelection();
-        });
-        tblOrderItems.refresh();
         calculateOrderTotal();
         btnPlaceOrder.setDisable(tblOrderItems.getItems().isEmpty());
     }
 
     private void calculateOrderTotal() {
         Optional<BigDecimal> orderTotal = tblOrderItems.getItems().stream().map(orderItem -> orderItem.getTotal()).reduce((prev, cur) -> prev.add(cur));
-        lblTotal.setText("Total: Rs." + orderTotal.orElseGet(()-> BigDecimal.ZERO).setScale(2));
+        lblTotal.setText("TOTAL : Rs. " + orderTotal.orElseGet(()-> BigDecimal.ZERO).setScale(2));
     }
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
+        try {
+            OrderDataAccess.saveOrder(tblOrderItems.getItems(), lblOrderId.getText().replace("Order ID : ", ""), UserDetails.getLoggedUser().getId());
+            printBill();
+            btnNewOrder.fire();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to save the order. Try again later.").show();
+            e.printStackTrace();
+        }
+    }
+
+    private void printBill() {
+        JasperDesign jasperDesign;
+        try {
+            jasperDesign = JRXmlLoader.load(getClass().getResourceAsStream("/print/pos-bill.jrxml"));
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            Map<String, Object> reportParams = new HashMap<>();
+            reportParams.put("id", lblOrderId.getText().replace("Order ID : ", ""));
+            reportParams.put("date", lblDate.getText().replace("Date : ", ""));
+            reportParams.put("teller-id", lblUserId.getText());
+            reportParams.put("teller-name", lblUserName.getText());
+            reportParams.put("total", lblTotal.getText().replace("TOTAL Rs. ", ""));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, reportParams, new JRBeanCollectionDataSource(tblOrderItems.getItems()));
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to print the bill").show();
+            e.printStackTrace();
+        }
     }
 
     public void btnCustomerSearch(ActionEvent actionEvent) {
@@ -157,7 +201,7 @@ public class PlaceOrderSceneController {
         cmbItemCode.getSelectionModel().clearSelection();
         lblOrderId.setText("Order ID : ".concat(String.format("OD%05d",Integer.parseInt(OrderDataAccess.getLastOrderId().substring(2)) + 1)));
         tblOrderItems.getItems().clear();
-        lblTotal.setText("Total : Rs. 0.00");
+        lblTotal.setText("TOTAL : Rs. 0.00");
         cmbItemCode.getItems().addAll(OrderDataAccess.getAllItems());
         btnAdd.setDisable(true);
         btnPlaceOrder.setDisable(true);
