@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lk.ijse.dep11.app.common.UserDetails;
+import lk.ijse.dep11.app.common.WindowNavigation;
 import lk.ijse.dep11.app.db.OrderDataAccess;
 import lk.ijse.dep11.app.tm.Item;
 import lk.ijse.dep11.app.tm.OrderItem;
@@ -99,27 +100,7 @@ public class PlaceOrderSceneController {
 
     }
     public void btnLogoutOnAction(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure want to logout? ");
-        ButtonType yes = new ButtonType("Yes");
-        ButtonType no = new ButtonType("No");
-        alert.getButtonTypes().setAll(yes, no);
-        alert.showAndWait().ifPresent(result -> {
-            if (result == yes) {
-                try {
-                    navigateToLogin();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-    }
-
-    private void navigateToLogin() throws IOException {
-        Stage stage = new Stage();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/LoginScene.fxml"))));
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.show();
-        ((Stage)root.getScene().getWindow()).close();
+        WindowNavigation.loggingOut(root);
     }
 
     public void btnAddOnAction(ActionEvent actionEvent) {
@@ -181,7 +162,7 @@ public class PlaceOrderSceneController {
             reportParams.put("date", lblDate.getText().replace("Date : ", ""));
             reportParams.put("teller-id", lblUserId.getText());
             reportParams.put("teller-name", lblUserName.getText());
-            reportParams.put("total", lblTotal.getText().replace("TOTAL Rs. ", ""));
+            reportParams.put("total", lblTotal.getText().replace("TOTAL : Rs. ", ""));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, reportParams, new JRBeanCollectionDataSource(tblOrderItems.getItems()));
             JasperViewer.viewReport(jasperPrint, false);
         } catch (JRException e) {

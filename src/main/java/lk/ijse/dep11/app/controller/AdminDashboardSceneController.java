@@ -83,8 +83,7 @@ public class AdminDashboardSceneController {
     }
 
     public void btnLogoutOnAction(ActionEvent actionEvent) {
-        WindowNavigation.loggingOut();
-        ((Stage)root.getScene().getWindow()).close();
+        WindowNavigation.loggingOut(root);
     }
 
 
