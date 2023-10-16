@@ -1,9 +1,10 @@
-package lk.ijse.dep11.app.controller;
+package lk.ijse.dep11.app.common;
 
 import lk.ijse.dep11.app.tm.User;
 
 public class UserDetails {
     private static User loggedUser;
+    private static User permittedUser;
 
     public static User getLoggedUser() {
         return loggedUser;
@@ -13,4 +14,11 @@ public class UserDetails {
         UserDetails.loggedUser = loggedUser;
     }
 
+    public static User getPermittedUser() {
+        return permittedUser;
+    }
+
+    public static void setPermittedUser(User permittedUser) {
+        UserDetails.permittedUser = permittedUser;
+    }
 }
