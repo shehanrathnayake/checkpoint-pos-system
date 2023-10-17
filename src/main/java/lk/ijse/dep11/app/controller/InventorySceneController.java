@@ -125,7 +125,7 @@ public class InventorySceneController {
             new Alert(Alert.AlertType.ERROR, "Unable to establish a database connection").show();
             e.printStackTrace();
         }
-     }
+    }
 
     private boolean isDataValid() throws SQLException {
         String itemCode = txtItemCode.getText().strip();
