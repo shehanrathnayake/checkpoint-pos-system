@@ -8,4 +8,9 @@ import lombok.NoArgsConstructor;
 public class UserRole {
     private int id;
     private String role;
+
+    @Override
+    public String toString() {
+        return role;
+    }
 }

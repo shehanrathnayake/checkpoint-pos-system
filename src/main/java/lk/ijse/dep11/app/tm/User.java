@@ -12,4 +12,9 @@ public class User {
     private String password;
     private int userRoleId;
     private String gender;
+
+    public String getName() {
+        return firstName + " " + lastName;
+    }
+
 }

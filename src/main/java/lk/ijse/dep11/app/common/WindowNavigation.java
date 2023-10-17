@@ -43,4 +43,13 @@ public class WindowNavigation {
         stage.setScene(new Scene(FXMLLoader.load(WindowNavigation.class.getResource("/view/AdminDashboardScene.fxml"))));
         stage.show();
     }
+
+    public static void navigateToWindow(String sceneName, String sceneTitle, AnchorPane root) throws IOException {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(WindowNavigation.class.getResource("/view/".concat(sceneName)))));
+        stage.setTitle(sceneTitle);
+        stage.setMaximized(true);
+        stage.show();
+        ((Stage)root.getScene().getWindow()).close();
+    }
 }
