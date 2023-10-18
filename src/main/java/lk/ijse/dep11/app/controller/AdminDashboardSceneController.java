@@ -27,6 +27,8 @@ public class AdminDashboardSceneController {
     public Button btnManageCustomers;
     public Button btnManageOrders;
 
+    private String sceneName;
+    private String sceneTitle;
     public void initialize() {
         final String PROFILE_IMAGE_NAME;
         if (UserDetails.getLoggedUser().getGender().equals("male")) PROFILE_IMAGE_NAME = "male-avatar.jpg";
@@ -50,36 +52,27 @@ public class AdminDashboardSceneController {
     }
 
     public void btnManageInventoryOnAction(ActionEvent actionEvent) throws IOException {
-        String sceneName = "InventoryScene.fxml";
-        String sceneTitle = "Inventory Management";
-        navigateToFeatureScene(sceneName, sceneTitle);
+        sceneName = "InventoryScene.fxml";
+        sceneTitle = "Inventory Management";
+        WindowNavigation.navigateToWindow(sceneName, sceneTitle, root);
     }
 
     public void btnManageUsersOnAction(ActionEvent actionEvent) throws IOException {
-        String sceneName = "UserScene.fxml";
-        String sceneTitle = "Users Management";
-        navigateToFeatureScene(sceneName, sceneTitle);
+        sceneName = "UserScene.fxml";
+        sceneTitle = "Users Management";
+        WindowNavigation.navigateToWindow(sceneName, sceneTitle, root);
     }
 
     public void btnManageCustomersOnAction(ActionEvent actionEvent) throws IOException {
-        String sceneName = "CustomerScene.fxml";
-        String sceneTitle = "Customers Management";
-        navigateToFeatureScene(sceneName, sceneTitle);
+        sceneName = "CustomerScene.fxml";
+        sceneTitle = "Customers Management";
+        WindowNavigation.navigateToWindow(sceneName, sceneTitle, root);
     }
 
     public void btnManageOrdersOnAction(ActionEvent actionEvent) throws IOException {
-        String sceneName = "OrderScene.fxml";
-        String sceneTitle = "Orders Management";
-        navigateToFeatureScene(sceneName, sceneTitle);
-    }
-
-    private void navigateToFeatureScene(String sceneName, String sceneTitle) throws IOException {
-        Stage stage = new Stage();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/".concat(sceneName)))));
-        stage.setTitle(sceneTitle);
-        stage.setMaximized(true);
-        stage.show();
-        ((Stage)root.getScene().getWindow()).close();
+        sceneName = "OrderScene.fxml";
+        sceneTitle = "Orders Management";
+        WindowNavigation.navigateToWindow(sceneName, sceneTitle, root);
     }
 
     public void btnLogoutOnAction(ActionEvent actionEvent) {

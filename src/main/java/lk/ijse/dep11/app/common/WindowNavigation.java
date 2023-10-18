@@ -5,8 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lk.ijse.dep11.app.controller.UserProfileSceneController;
+import lk.ijse.dep11.app.tm.User;
 
 import java.io.IOException;
 
@@ -41,6 +44,39 @@ public class WindowNavigation {
     public static void navigateToDashboard(AnchorPane root) throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load(WindowNavigation.class.getResource("/view/AdminDashboardScene.fxml"))));
+        stage.show();
+    }
+
+    public static void navigateToWindow(String sceneName, String sceneTitle, AnchorPane root) throws IOException {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(WindowNavigation.class.getResource("/view/".concat(sceneName)))));
+        stage.setTitle(sceneTitle);
+        stage.setMaximized(true);
+        stage.show();
+        ((Stage)root.getScene().getWindow()).close();
+    }
+
+    public static void navigateToUserProfilePage(User selectedUser) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowNavigation.class.getResource("/view/UserProfileScene.fxml"));
+        AnchorPane root = fxmlLoader.load();
+
+        UserProfileSceneController userProfileSceneController = fxmlLoader.getController();
+        userProfileSceneController.initData(selectedUser);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public static void navigateToUserRolePopUpWindow() throws IOException {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(WindowNavigation.class.getResource("/view/UserRoleScene.fxml"))));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.centerOnScreen();
         stage.show();
     }
 }
