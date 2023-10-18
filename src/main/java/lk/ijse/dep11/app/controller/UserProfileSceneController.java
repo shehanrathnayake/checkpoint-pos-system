@@ -1,13 +1,17 @@
 package lk.ijse.dep11.app.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.dep11.app.common.WindowNavigation;
 import lk.ijse.dep11.app.db.UserDataAccess;
 import lk.ijse.dep11.app.tm.User;
 import lk.ijse.dep11.app.tm.UserRole;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class UserProfileSceneController {
@@ -26,20 +30,28 @@ public class UserProfileSceneController {
     public Label txtUserId;
     public ToggleButton btnChangePassword;
     private User selectedUser;
-
     private boolean changePassword;
 
     public void initialize() {
-        if (selectedUser != null) {
-            txtUserId.setText(selectedUser.getId());
-            txtFirstName.setText(selectedUser.getFirstName());
-            txtLastName.setText(selectedUser.getLastName());
-            cmbUserRole.getSelectionModel().select(selectedUser.getUserRoleId());
-            cmbGender.getSelectionModel().select(selectedUser.getGender());
-        } else {
-            txtOldPassword.setDisable(true);
-        }
-
+        Platform.runLater(()->{
+            try{
+                cmbUserRole.getItems().addAll(UserDataAccess.findUserRoles(""));
+                cmbGender.getItems().addAll(new String[]{"male", "female"});
+                if (selectedUser != null) {
+                    txtUserId.setText(selectedUser.getId());
+                    txtFirstName.setText(selectedUser.getFirstName());
+                    txtLastName.setText(selectedUser.getLastName());
+                    cmbUserRole.getSelectionModel().select(selectedUser.getUserRole());
+                    cmbGender.getSelectionModel().select(selectedUser.getGender());
+                } else {
+                    txtOldPassword.setDisable(true);
+                    txtUserId.setText(String.format("U%04d",Integer.parseInt(UserDataAccess.getLastUserId().replace("U",""))+1));
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Cannot establish a database connection").show();
+                e.printStackTrace();
+            }
+        });
     }
     public void initData(User selectedUser) {
         this.selectedUser=selectedUser;
@@ -48,19 +60,35 @@ public class UserProfileSceneController {
     public void btnChangeProfilePicture(ActionEvent actionEvent) {
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    public void btnSaveOnAction(ActionEvent actionEvent) throws IOException {
         if (!isDataValid()) return;
         String userId = txtUserId.getText();
         String firstName = txtFirstName.getText().strip();
         String lastName = txtLastName.getText().strip();
         String gender = cmbGender.getSelectionModel().getSelectedItem();
         int userRoleId = cmbUserRole.getSelectionModel().getSelectedItem().getId();
-        String password = "";
-        if (selectedUser== null) password = txtNewPassword.getText();
-        else password = selectedUser.getPassword();
-        User newUser = new User(userId, firstName, lastName, gender, userRoleId, password);
+
         try {
-            UserDataAccess.setUser(newUser);
+            String password = "";
+            if (selectedUser== null){
+                password = txtNewPassword.getText();
+                User newUser = new User(userId, firstName, lastName, password, userRoleId, gender);
+                UserDataAccess.setUser(newUser);
+            }
+            else {
+                if (changePassword) password = txtNewPassword.getText();
+                else password = selectedUser.getPassword();
+                User updatedUser = new User(userId, firstName, lastName, password, userRoleId, gender);
+                UserDataAccess.updateUser(updatedUser);
+            }
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/UserScene.fxml"));
+            fxmlLoader.load();
+            UserSceneController userSceneController = fxmlLoader.getController();
+
+            userSceneController.initialize();
+
+            btnCancel.fire();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,"Cannot save the user. Try again later").show();
             e.printStackTrace();

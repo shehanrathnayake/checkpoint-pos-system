@@ -5,8 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lk.ijse.dep11.app.controller.UserProfileSceneController;
+import lk.ijse.dep11.app.tm.User;
 
 import java.io.IOException;
 
@@ -51,5 +54,19 @@ public class WindowNavigation {
         stage.setMaximized(true);
         stage.show();
         ((Stage)root.getScene().getWindow()).close();
+    }
+
+    public static void navigateToUserProfilePage(User selectedUser) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowNavigation.class.getResource("/view/UserProfileScene.fxml"));
+        AnchorPane root = fxmlLoader.load();
+
+        UserProfileSceneController userProfileSceneController = fxmlLoader.getController();
+        userProfileSceneController.initData(selectedUser);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 }

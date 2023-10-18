@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDataAccess {
@@ -16,15 +17,19 @@ public class UserDataAccess {
     private static final PreparedStatement STM_GET_USER_ROLE;
     private static final PreparedStatement STM_FIND_USER_ROLES;
     private static final PreparedStatement STM_SET_USER;
+    private static final PreparedStatement STM_UPDATE_USER;
+    private static final PreparedStatement STM_LAST_USER_ID;
 
     static {
         Connection connection = SingleConnectionDataSource.getInstance().getConnection();
         try {
             STM_GET_USER = connection.prepareStatement("SELECT * FROM user WHERE user_id=?");
             STM_FIND_USERS = connection.prepareStatement("SELECT * FROM user WHERE user_id LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR gender LIKE ?");
-            STM_GET_USER_ROLE = connection.prepareStatement("SELECT role FROM user_role WHERE id = ?");
+            STM_GET_USER_ROLE = connection.prepareStatement("SELECT * FROM user_role WHERE id = ?");
             STM_FIND_USER_ROLES = connection.prepareStatement("SELECT * FROM user_role WHERE role LIKE ?");
             STM_SET_USER = connection.prepareStatement("INSERT INTO user (user_id, first_name, last_name, password, user_role_id, gender) VALUES (?,?,?,?,?,?)");
+            STM_UPDATE_USER = connection.prepareStatement("UPDATE user SET first_name = ?, last_name = ?, password = ?, user_role_id = ?, gender = ? WHERE user_id = ?");
+            STM_LAST_USER_ID = connection.prepareStatement("SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -49,7 +54,7 @@ public class UserDataAccess {
             STM_FIND_USERS.setString(i, "%".concat(query).concat("%"));
         }
         ResultSet rst = STM_FIND_USERS.executeQuery();
-        List<User> userList = null;
+        List<User> userList = new ArrayList<>();
         while (rst.next()) {
             userList.add(getUser(rst.getString("user_id")));
         }
@@ -63,14 +68,13 @@ public class UserDataAccess {
         if (rst.next()) {
             userRole = new UserRole(rst.getInt("id"), rst.getString("role"));
         }
-
         return userRole;
     }
 
     public static List<UserRole> findUserRoles(String query) throws SQLException {
         STM_FIND_USER_ROLES.setString(1, "%".concat(query).concat("%"));
         ResultSet rst = STM_FIND_USER_ROLES.executeQuery();
-        List<UserRole> userRoleList = null;
+        List<UserRole> userRoleList = new ArrayList<>();
         while(rst.next()) {
             userRoleList.add(new UserRole(rst.getInt("id"), rst.getString("role")));
         }
@@ -85,5 +89,23 @@ public class UserDataAccess {
         STM_SET_USER.setInt(5, newUser.getUserRoleId());
         STM_SET_USER.setString(6, newUser.getGender());
         STM_SET_USER.executeUpdate();
+    }
+
+    public static void updateUser(User updatedUser) throws SQLException {
+        STM_UPDATE_USER.setString(1, updatedUser.getFirstName());
+        STM_UPDATE_USER.setString(2, updatedUser.getLastName());
+        STM_UPDATE_USER.setString(3, updatedUser.getPassword());
+        STM_UPDATE_USER.setInt(4, updatedUser.getUserRoleId());
+        STM_UPDATE_USER.setString(5, updatedUser.getGender());
+        STM_UPDATE_USER.setString(6, updatedUser.getId());
+        STM_UPDATE_USER.executeUpdate();
+    }
+
+    public static String getLastUserId() throws SQLException {
+        ResultSet rst = STM_LAST_USER_ID.executeQuery();
+        if (!rst.next()) {
+            return "U0000";
+        }
+        return rst.getString("user_id");
     }
 }
