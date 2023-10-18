@@ -67,6 +67,16 @@ public class WindowNavigation {
         stage.setScene(new Scene(root));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public static void navigateToUserRolePopUpWindow() throws IOException {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(WindowNavigation.class.getResource("/view/UserRoleScene.fxml"))));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.centerOnScreen();
         stage.show();
     }
 }

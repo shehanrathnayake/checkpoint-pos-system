@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="root" prefHeight="349.0" prefWidth="229.0" style="-fx-border-color: #0d1cf8; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.UserRoleSceneController">
+   <children>
+      <TableView fx:id="tblUserRole" layoutX="14.0" layoutY="136.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="199.0" text="User Role" />
+        </columns>
+      </TableView>
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="112.0" prefWidth="200.0" spacing="15.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="16.0" prefWidth="206.0" text="User Role" textFill="#0d1cf8">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUserRole" />
+            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="24.0" prefWidth="88.0" text="SAVE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="83.0" text="DELETE">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="btnClose" layoutX="200.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="18.0" prefWidth="18.0" text="X">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

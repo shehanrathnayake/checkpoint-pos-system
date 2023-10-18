@@ -100,6 +100,7 @@ public class UserSceneController {
         WindowNavigation.navigateToUserProfilePage(selectedUser);
     }
 
-    public void menuManageUserRolesOnAction(ActionEvent actionEvent) {
+    public void menuManageUserRolesOnAction(ActionEvent actionEvent) throws IOException {
+        WindowNavigation.navigateToUserRolePopUpWindow();
     }
 }
