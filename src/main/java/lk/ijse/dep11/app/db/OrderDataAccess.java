@@ -1,13 +1,11 @@
 package lk.ijse.dep11.app.db;
 
 import lk.ijse.dep11.app.tm.Item;
+import lk.ijse.dep11.app.tm.Order;
 import lk.ijse.dep11.app.tm.OrderItem;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class OrderDataAccess {
@@ -16,6 +14,9 @@ public class OrderDataAccess {
     private static final PreparedStatement STM_INSERT_ORDER_ITEM;
     private static final PreparedStatement STM_INSERT_ORDER;
     private static final PreparedStatement STM_UPDATE_STOCK;
+    private static final PreparedStatement STM_GET_ORDER_ITEMS;
+    private static final PreparedStatement STM_FIND_ORDERS;
+
     static {
         Connection connection = SingleConnectionDataSource.getInstance().getConnection();
         try {
@@ -24,6 +25,8 @@ public class OrderDataAccess {
             STM_INSERT_ORDER_ITEM = connection.prepareStatement("INSERT INTO order_item (item_code, order_id, qty, unit_price) VALUES (?,?,?,?)");
             STM_INSERT_ORDER = connection.prepareStatement("INSERT INTO `order` (order_id, date, user_id) VALUES (?,CURRENT_DATE,?)");
             STM_UPDATE_STOCK = connection.prepareStatement("UPDATE item SET qty=(qty+?) WHERE item_code=?");
+            STM_GET_ORDER_ITEMS = connection.prepareStatement("SELECT * FROM order_item WHERE order_id = ?");
+            STM_FIND_ORDERS = connection.prepareStatement("SELECT * FROM `order` WHERE order_id LIKE ? OR DATE_FORMAT(date, 'yyyy-MM-dd') LIKE ? OR user_id LIKE ?");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -76,5 +79,30 @@ public class OrderDataAccess {
         } finally {
             SingleConnectionDataSource.getInstance().getConnection().setAutoCommit(true);
         }
+    }
+
+    public static BigDecimal getTotal(String orderId) throws SQLException {
+        STM_GET_ORDER_ITEMS.setString(1, orderId);
+        ResultSet rst = STM_GET_ORDER_ITEMS.executeQuery();
+        BigDecimal orderTotal = BigDecimal.ZERO;
+        while(rst.next()) {
+            orderTotal = orderTotal.add(rst.getBigDecimal("unit_price").multiply(new BigDecimal(rst.getInt("qty"))));
+        }
+        return orderTotal;
+    }
+
+    public static List<Order> findOrders(String query) throws SQLException {
+        for (int i = 1; i < 4; i++) {
+            STM_FIND_ORDERS.setString(i, "%".concat(query).concat("%"));
+        }
+        ResultSet rst = STM_FIND_ORDERS.executeQuery();
+        List<Order> orderList = new ArrayList<>();
+        while(rst.next()) {
+            String orderId = rst.getString("order_id");
+            String date = rst.getDate("date").toString();
+            String userId = rst.getString("user_id");
+            orderList.add(new Order(orderId, date, userId));
+        }
+        return orderList;
     }
 }

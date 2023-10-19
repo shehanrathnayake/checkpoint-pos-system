@@ -18,6 +18,7 @@ public class CustomerDataAccess {
     private static final PreparedStatement STM_UPDATE_CUSTOMER;
     private static final PreparedStatement STM_DELETE_CUSTOMER;
     private static final PreparedStatement STM_LAST_CUSTOMER_ID;
+    private static final PreparedStatement STM_GET_CUSTOMER_ID;
 
     static {
         Connection connection = SingleConnectionDataSource.getInstance().getConnection();
@@ -28,6 +29,7 @@ public class CustomerDataAccess {
             STM_UPDATE_CUSTOMER = connection.prepareStatement("UPDATE customer SET name=?, address=?, phone=? WHERE customer_id=?");
             STM_DELETE_CUSTOMER = connection.prepareStatement("DELETE FROM customer WHERE customer_id=?");
             STM_LAST_CUSTOMER_ID = connection.prepareStatement("SELECT customer_id FROM customer ORDER BY customer_id DESC LIMIT 1");
+            STM_GET_CUSTOMER_ID = connection.prepareStatement("SELECT customer_id FROM customer_order WHERE order_id = ?");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -86,4 +88,13 @@ public class CustomerDataAccess {
         STM_DELETE_CUSTOMER.setString(1, customerId);
         STM_DELETE_CUSTOMER.executeUpdate();
     }
+
+    public static String getCustomerId(String orderId) throws SQLException {
+        STM_GET_CUSTOMER_ID.setString(1, orderId);
+        ResultSet rst = STM_GET_CUSTOMER_ID.executeQuery();
+        if (!rst.next()) return null;
+        return rst.getString("customer_id");
+    }
+
+
 }

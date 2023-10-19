@@ -1,14 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.dep11.app.controller.OrderSceneController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane fx:id="root" prefHeight="890.0" prefWidth="1265.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.OrderSceneController">
+   <children>
+      <HBox alignment="CENTER_RIGHT" layoutX="1004.0" layoutY="23.0" prefHeight="75.0" prefWidth="276.0" spacing="20.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <ImageView fx:id="imgProfileImage" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/male-avatar.jpg" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="75.0" prefWidth="145.0" spacing="2.0">
+               <children>
+                  <Label fx:id="lblUserId" prefHeight="18.0" prefWidth="145.0" text="U0001" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="lblUserName" prefHeight="17.0" prefWidth="152.0" text="Shehan" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="27.0" prefWidth="26.0" />
+         </children>
+      </HBox>
+      <Label alignment="CENTER" layoutX="15.0" layoutY="879.0" prefHeight="16.0" prefWidth="1245.0" text="Copyright 2023 Shehan Rathnayake. All Rights Reserved." textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" layoutX="19.0" layoutY="47.0" prefHeight="75.0" prefWidth="564.0" spacing="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="38.0">
+         <children>
+            <ImageView fx:id="imgViewLogo" fitHeight="67.0" fitWidth="92.0" onMouseClicked="#imgViewLogoOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo-no-border.png" />
+               </image>
+            </ImageView>
+            <Label text="ORDERS" textFill="#2d12ff">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <TableView fx:id="tblOrders" layoutX="24.0" layoutY="211.0" prefHeight="639.0" prefWidth="1235.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="210.0">
+         <columns>
+            <TableColumn prefWidth="137.0" text="Order ID" />
+            <TableColumn prefWidth="140.0" text="Order Date" />
+            <TableColumn minWidth="1.0" prefWidth="159.0" text="Order Total" />
+            <TableColumn prefWidth="160.0" text="User ID" />
+            <TableColumn prefWidth="250.0" text="User Name" />
+            <TableColumn prefWidth="164.0" text="Customer ID" />
+            <TableColumn prefWidth="227.0" text="Customer Name" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <VBox alignment="CENTER" layoutX="452.0" layoutY="136.0" prefHeight="50.0" prefWidth="360.0" spacing="10.0" AnchorPane.leftAnchor="453.0" AnchorPane.rightAnchor="453.0" AnchorPane.topAnchor="135.0">
+         <children>
+            <Label text="Search Orders">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtSearch" alignment="CENTER" prefHeight="24.0" prefWidth="291.0" />
+         </children>
+      </VBox>
+      <Button fx:id="btnView" layoutX="1154.0" layoutY="151.0" mnemonicParsing="false" onAction="#btnViewOnAction" prefHeight="33.0" prefWidth="94.0" text="VIEW" AnchorPane.rightAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
