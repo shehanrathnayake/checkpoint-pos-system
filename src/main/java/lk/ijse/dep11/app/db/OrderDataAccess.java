@@ -26,7 +26,20 @@ public class OrderDataAccess {
             STM_INSERT_ORDER = connection.prepareStatement("INSERT INTO `order` (order_id, date, user_id) VALUES (?,CURRENT_DATE,?)");
             STM_UPDATE_STOCK = connection.prepareStatement("UPDATE item SET qty=(qty+?) WHERE item_code=?");
             STM_GET_ORDER_ITEMS = connection.prepareStatement("SELECT * FROM order_item WHERE order_id = ?");
-            STM_FIND_ORDERS = connection.prepareStatement("SELECT * FROM `order` WHERE order_id LIKE ? OR DATE_FORMAT(date, 'yyyy-MM-dd') LIKE ? OR user_id LIKE ?");
+//            STM_FIND_ORDERS = connection.prepareStatement("SELECT * FROM `order` WHERE order_id LIKE ? OR DATE_FORMAT(date, 'yyyy-MM-dd') LIKE ? OR user_id LIKE ?");
+            STM_FIND_ORDERS = connection.prepareStatement("SELECT o.order_id, o.date, SUM(oi.qty * oi.unit_price) AS total , o.user_id, CONCAT(u.first_name, ' ',  u.last_name) AS user_name,\n" +
+                    "       co.customer_id, c.name AS customer_name FROM `order` AS o\n" +
+                    "    INNER JOIN\n" +
+                    "    order_item oi on o.order_id = oi.order_id\n" +
+                    "    INNER JOIN\n" +
+                    "    user AS u ON o.user_id = u.user_id\n" +
+                    "    LEFT JOIN\n" +
+                    "    customer_order AS co ON o.order_id = co.order_id\n" +
+                    "    LEFT JOIN\n" +
+                    "    customer AS c ON co.customer_id = c.customer_id\n" +
+                    "    WHERE o.order_id LIKE ? OR CONCAT(o.date,'') LIKE ? OR o.user_id LIKE ? OR CONCAT(u.first_name, ' ',  u.last_name) LIKE ?\n" +
+                    "    OR c.customer_id LIKE ? OR c.name LIKE ?\n" +
+                    "    GROUP BY o.order_id, co.customer_id ORDER BY o.order_id DESC ;");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -92,7 +105,7 @@ public class OrderDataAccess {
     }
 
     public static List<Order> findOrders(String query) throws SQLException {
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < 7; i++) {
             STM_FIND_ORDERS.setString(i, "%".concat(query).concat("%"));
         }
         ResultSet rst = STM_FIND_ORDERS.executeQuery();
