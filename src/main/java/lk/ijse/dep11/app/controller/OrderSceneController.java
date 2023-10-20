@@ -12,9 +12,16 @@ import lk.ijse.dep11.app.common.UserDetails;
 import lk.ijse.dep11.app.common.WindowNavigation;
 import lk.ijse.dep11.app.db.OrderDataAccess;
 import lk.ijse.dep11.app.tm.Order;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderSceneController {
 
@@ -81,5 +88,25 @@ public class OrderSceneController {
     }
 
     public void btnViewOnAction(ActionEvent actionEvent) {
+        Order selectedOrder = tblOrders.getSelectionModel().getSelectedItem();
+        JasperDesign jasperDesign;
+        try {
+            jasperDesign = JRXmlLoader.load(getClass().getResourceAsStream("/print/pos-bill.jrxml"));
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            Map<String, Object> reportParams = new HashMap<>();
+            reportParams.put("id", selectedOrder.getOrderId());
+            reportParams.put("date", selectedOrder.getOrderDate());
+            reportParams.put("teller-id", selectedOrder.getUserId());
+            reportParams.put("teller-name", selectedOrder.getUserName());
+            reportParams.put("total", selectedOrder.getTotal().toString());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, reportParams, new JRBeanCollectionDataSource(OrderDataAccess.getAllOrderItems(selectedOrder.getOrderId())));
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to print the bill").show();
+            e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Cannot establish a database connection.").show();
+            e.printStackTrace();
+        }
     }
 }

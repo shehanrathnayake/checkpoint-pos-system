@@ -1,5 +1,6 @@
 package lk.ijse.dep11.app.db;
 
+import javafx.scene.control.Button;
 import lk.ijse.dep11.app.tm.Item;
 import lk.ijse.dep11.app.tm.Order;
 import lk.ijse.dep11.app.tm.OrderItem;
@@ -44,10 +45,6 @@ public class OrderDataAccess {
             throw new RuntimeException(e);
         }
     }
-    public static List<OrderItem> getAllOrderItems() {
-        return null;
-    }
-
     public static String getLastOrderId() throws SQLException {
         ResultSet rst = STM_GET_LAST_ORDER_ID.executeQuery();
         if (!rst.next()) return "OD00000";
@@ -102,6 +99,19 @@ public class OrderDataAccess {
             orderTotal = orderTotal.add(rst.getBigDecimal("unit_price").multiply(new BigDecimal(rst.getInt("qty"))));
         }
         return orderTotal;
+    }
+    public static List<OrderItem> getAllOrderItems(String orderId) throws SQLException {
+        STM_GET_ORDER_ITEMS.setString(1, orderId);
+        ResultSet rst = STM_GET_ORDER_ITEMS.executeQuery();
+        List<OrderItem> orderItemList = new ArrayList<>();
+        while(rst.next()) {
+            String itemCode = rst.getString("item_code");
+            String description = ItemDataAccess.getDescription(itemCode);
+            int qty = rst.getInt("qty");
+            BigDecimal unitPrice = rst.getBigDecimal("unit_price");
+            orderItemList.add(new OrderItem(itemCode, description, qty, unitPrice, BigDecimal.ZERO, new Button("DELETE")));
+        }
+        return orderItemList;
     }
 
     public static List<Order> findOrders(String query) throws SQLException {
