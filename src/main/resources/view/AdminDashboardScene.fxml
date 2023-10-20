@@ -68,7 +68,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <HBox alignment="CENTER" layoutX="15.0" layoutY="333.0" prefHeight="231.0" prefWidth="1253.0" spacing="25.0" AnchorPane.bottomAnchor="310.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="333.0">
+      <HBox alignment="CENTER" layoutX="15.0" layoutY="333.0" prefHeight="231.0" prefWidth="1253.0" spacing="50.0" AnchorPane.bottomAnchor="310.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="333.0">
          <children>
             <VBox alignment="CENTER" prefHeight="231.0" prefWidth="160.0" spacing="25.0">
                <children>

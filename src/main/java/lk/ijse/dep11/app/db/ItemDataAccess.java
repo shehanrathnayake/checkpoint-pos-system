@@ -16,6 +16,7 @@ public class ItemDataAccess {
     private static final PreparedStatement STM_ITEM_EXISTS;
     private static final PreparedStatement STM_UPDATE_ITEM;
     private static final PreparedStatement STM_DELETE_ITEM;
+    private static final PreparedStatement STM_GET_DESCRIPTION;
 
     static {
         Connection connection = SingleConnectionDataSource.getInstance().getConnection();
@@ -25,6 +26,7 @@ public class ItemDataAccess {
             STM_ITEM_EXISTS = connection.prepareStatement("SELECT item_code FROM order_item WHERE item_code=?");
             STM_UPDATE_ITEM = connection.prepareStatement("UPDATE item SET description=?, qty=?, unit_price=? WHERE item_code=?");
             STM_DELETE_ITEM = connection.prepareStatement("DELETE FROM item WHERE item_code=?");
+            STM_GET_DESCRIPTION = connection.prepareStatement("SELECT description FROM item WHERE item_code = ?");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -72,5 +74,12 @@ public class ItemDataAccess {
     public static void deleteItem(String itemCode) throws SQLException {
         STM_DELETE_ITEM.setString(1, itemCode);
         STM_DELETE_ITEM.executeUpdate();
+    }
+
+    public static String getDescription(String itemCode) throws SQLException {
+        STM_GET_DESCRIPTION.setString(1, itemCode);
+        ResultSet rst = STM_GET_DESCRIPTION.executeQuery();
+        if (!rst.next()) return "-";
+        return rst.getString("description");
     }
 }
