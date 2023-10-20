@@ -58,14 +58,6 @@ public class CustomerDataAccess {
         STM_SET_CUSTOMER.setString(4, newCustomer.getPhone());
         STM_SET_CUSTOMER.executeUpdate();
     }
-
-    public static boolean itemExist(String itemCode) throws SQLException {
-        STM_CUSTOMER_EXISTS.setString(1, itemCode);
-        ResultSet rst = STM_CUSTOMER_EXISTS.executeQuery();
-        if (rst.next()) return true;
-        else return false;
-    }
-
     public static void updateCustomer(Customer updatedCustomer) throws SQLException {
         STM_UPDATE_CUSTOMER.setString(1, updatedCustomer.getName());
         STM_UPDATE_CUSTOMER.setString(2, updatedCustomer.getAddress());

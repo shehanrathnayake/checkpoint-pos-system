@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="401.0" prefWidth="446.0" style="-fx-border-color: #1e09ff; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.RegisterCustomerController">
+   <children>
+      <Button fx:id="btnClose" layoutX="412.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnCloseOnAction" text="X">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="135.0" layoutY="19.0" prefHeight="21.0" prefWidth="183.0" text="New Customer" textFill="#1e09ff" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="135.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <VBox layoutX="12.0" layoutY="67.0" prefHeight="328.0" prefWidth="416.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <children>
+            <VBox prefHeight="69.0" prefWidth="416.0" spacing="10.0">
+               <children>
+                  <Label text="Customer ID">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtCustomerId" />
+               </children>
+            </VBox>
+            <VBox prefHeight="69.0" prefWidth="420.0" spacing="10.0">
+               <children>
+                  <Label text="Customer Name">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtCustomerName" />
+               </children>
+            </VBox>
+            <VBox prefHeight="69.0" prefWidth="420.0" spacing="10.0">
+               <children>
+                  <Label text="Address">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtAddress" />
+               </children>
+            </VBox>
+            <VBox prefHeight="69.0" prefWidth="420.0" spacing="10.0">
+               <children>
+                  <Label text="Telephone Number">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPhone" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="416.0" spacing="40.0">
+               <children>
+                  <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="24.0" prefWidth="80.0" text="SAVE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="24.0" prefWidth="80.0" text="CANCEL">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
