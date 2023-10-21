@@ -41,7 +41,6 @@ public class CustomerDataAccess {
         ResultSet rst = STM_FIND_CUSTOMERS.executeQuery();
         List<Customer> customerList = new ArrayList<>();
         while (rst.next()) {
-            if (rst==null) return null;
             String customerId = rst.getString("customer_id");
             String name = rst.getString("name");
             String address = rst.getString("address");

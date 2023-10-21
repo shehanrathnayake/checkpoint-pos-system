@@ -15,6 +15,7 @@ public class OrderDataAccess {
     private static final PreparedStatement STM_INSERT_ORDER_ITEM;
     private static final PreparedStatement STM_INSERT_ORDER;
     private static final PreparedStatement STM_UPDATE_STOCK;
+    private static final PreparedStatement STM_INSERT_ORDER_CUSTOMER;
     private static final PreparedStatement STM_GET_ORDER_ITEMS;
     private static final PreparedStatement STM_FIND_ORDERS;
 
@@ -26,6 +27,7 @@ public class OrderDataAccess {
             STM_INSERT_ORDER_ITEM = connection.prepareStatement("INSERT INTO order_item (item_code, order_id, qty, unit_price) VALUES (?,?,?,?)");
             STM_INSERT_ORDER = connection.prepareStatement("INSERT INTO `order` (order_id, date, user_id) VALUES (?,CURRENT_DATE,?)");
             STM_UPDATE_STOCK = connection.prepareStatement("UPDATE item SET qty=(qty+?) WHERE item_code=?");
+            STM_INSERT_ORDER_CUSTOMER = connection.prepareStatement("INSERT INTO customer_order (customer_id, order_id) values (?,?)");
             STM_GET_ORDER_ITEMS = connection.prepareStatement("SELECT * FROM order_item WHERE order_id = ?");
 //            STM_FIND_ORDERS = connection.prepareStatement("SELECT * FROM `order` WHERE order_id LIKE ? OR DATE_FORMAT(date, 'yyyy-MM-dd') LIKE ? OR user_id LIKE ?");
             STM_FIND_ORDERS = connection.prepareStatement("SELECT o.order_id, o.date, SUM(oi.qty * oi.unit_price) AS total , o.user_id, CONCAT(u.first_name, ' ',  u.last_name) AS user_name,\n" +
@@ -65,7 +67,7 @@ public class OrderDataAccess {
         return itemList;
     }
 
-    public static void saveOrder(List<OrderItem>orderItemList, String orderId, String userId) throws SQLException {
+    public static void saveOrder(List<OrderItem>orderItemList, String orderId, String userId, String customerID) throws SQLException {
         SingleConnectionDataSource.getInstance().getConnection().setAutoCommit(false);
         try{
             STM_INSERT_ORDER.setString(1, orderId);
@@ -82,6 +84,11 @@ public class OrderDataAccess {
                 STM_UPDATE_STOCK.setInt(1, (-1 * orderItem.getQty()));
                 STM_UPDATE_STOCK.setString(2, orderItem.getOrderItemCode());
                 STM_UPDATE_STOCK.executeUpdate();
+            }
+            if (!customerID.isEmpty()) {
+                STM_INSERT_ORDER_CUSTOMER.setString(1, customerID);
+                STM_INSERT_ORDER_CUSTOMER.setString(2, orderId);
+                STM_INSERT_ORDER_CUSTOMER.executeUpdate();
             }
         } catch (Throwable t) {
             SingleConnectionDataSource.getInstance().getConnection().rollback();

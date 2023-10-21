@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="401.0" prefWidth="446.0" style="-fx-border-color: #1e09ff; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.RegisterCustomerController">
+<AnchorPane fx:id="root" prefHeight="401.0" prefWidth="446.0" style="-fx-border-color: #1e09ff; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.RegisterCustomerController">
    <children>
       <Button fx:id="btnClose" layoutX="412.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnCloseOnAction" text="X">
          <font>
@@ -30,7 +30,7 @@
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtCustomerId" />
+                  <TextField fx:id="txtCustomerId" editable="false" />
                </children>
             </VBox>
             <VBox prefHeight="69.0" prefWidth="420.0" spacing="10.0">
@@ -60,7 +60,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtPhone" />
+                  <TextField fx:id="txtPhone" editable="false" />
                </children>
             </VBox>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="416.0" spacing="40.0">

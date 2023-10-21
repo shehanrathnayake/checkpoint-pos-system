@@ -147,7 +147,7 @@ public class PlaceOrderSceneController {
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
         try {
-            OrderDataAccess.saveOrder(tblOrderItems.getItems(), lblOrderId.getText().replace("Order ID : ", ""), UserDetails.getLoggedUser().getId());
+            OrderDataAccess.saveOrder(tblOrderItems.getItems(), lblOrderId.getText().replace("Order ID : ", ""), UserDetails.getLoggedUser().getId(), txtCustomerId.getText());
             printBill();
             btnNewOrder.fire();
         } catch (SQLException e) {
@@ -180,18 +180,27 @@ public class PlaceOrderSceneController {
         try {
             String customerNumber = txtCustomerPhone.getText().strip();
             List<Customer> customer = CustomerDataAccess.findCustomers(customerNumber);
+            if (customer.size() == 0) {
+                Alert newAlert = new Alert(Alert.AlertType.INFORMATION, "No existing customer found. Do you want to register a new customer?");
+                ButtonType yes = new ButtonType("Yes");
+                ButtonType no = new ButtonType("No");
+                newAlert.getButtonTypes().setAll(yes, no);
+                newAlert.showAndWait().ifPresent(result -> {
+                    if (result == yes) {
+                        try {
+                            WindowNavigation.navigateToCustomerAdd(txtCustomerPhone.getText().strip());
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
+            } else {
+                txtCustomerId.setText(customer.get(0).getCustomerId());
+                txtCustomerName.setText(customer.get(0).getName());
+            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Couldn't establish a database connection").show();
             e.printStackTrace();
-        } catch (NullPointerException e) {
-            Alert newAlert = new Alert(Alert.AlertType.INFORMATION, "No existing customer found. Do you want to register a new customer?");
-            ButtonType yes = new ButtonType("Yes");
-            ButtonType no = new ButtonType("No");
-            newAlert.getButtonTypes().setAll(yes, no);
-            newAlert.showAndWait().ifPresent(result -> {
-                if (result == yes) {
-                }
-            });
         }
     }
 
