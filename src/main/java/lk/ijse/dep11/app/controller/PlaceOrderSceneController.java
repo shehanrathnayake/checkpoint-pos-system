@@ -13,7 +13,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lk.ijse.dep11.app.common.UserDetails;
 import lk.ijse.dep11.app.common.WindowNavigation;
+import lk.ijse.dep11.app.db.CustomerDataAccess;
 import lk.ijse.dep11.app.db.OrderDataAccess;
+import lk.ijse.dep11.app.tm.Customer;
 import lk.ijse.dep11.app.tm.Item;
 import lk.ijse.dep11.app.tm.OrderItem;
 import net.sf.jasperreports.engine.*;
@@ -28,6 +30,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -56,6 +59,7 @@ public class PlaceOrderSceneController {
     public Label lblDate;
     public AnchorPane root;
     public TextField txtDescription;
+    public TextField txtCustomerPhone;
 
     public void initialize() {
         String[] orderItemColumns = {"orderItemCode", "description", "qty", "unitPrice", "discount", "total", "btnDelete"};
@@ -143,7 +147,7 @@ public class PlaceOrderSceneController {
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
         try {
-            OrderDataAccess.saveOrder(tblOrderItems.getItems(), lblOrderId.getText().replace("Order ID : ", ""), UserDetails.getLoggedUser().getId());
+            OrderDataAccess.saveOrder(tblOrderItems.getItems(), lblOrderId.getText().replace("Order ID : ", ""), UserDetails.getLoggedUser().getId(), txtCustomerId.getText());
             printBill();
             btnNewOrder.fire();
         } catch (SQLException e) {
@@ -172,6 +176,40 @@ public class PlaceOrderSceneController {
     }
 
     public void btnCustomerSearch(ActionEvent actionEvent) {
+        if (!isPhoneNumberValid()) return;
+        try {
+            String customerNumber = txtCustomerPhone.getText().strip();
+            List<Customer> customer = CustomerDataAccess.findCustomers(customerNumber);
+            if (customer.size() == 0) {
+                Alert newAlert = new Alert(Alert.AlertType.INFORMATION, "No existing customer found. Do you want to register a new customer?");
+                ButtonType yes = new ButtonType("Yes");
+                ButtonType no = new ButtonType("No");
+                newAlert.getButtonTypes().setAll(yes, no);
+                newAlert.showAndWait().ifPresent(result -> {
+                    if (result == yes) {
+                        try {
+                            WindowNavigation.navigateToCustomerAdd(txtCustomerPhone.getText().strip());
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
+            } else {
+                txtCustomerId.setText(customer.get(0).getCustomerId());
+                txtCustomerName.setText(customer.get(0).getName());
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Couldn't establish a database connection").show();
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isPhoneNumberValid() {
+        if (!(txtCustomerPhone.getText().strip().matches("[+]\\d{11}") || txtCustomerPhone.getText().strip().matches("0\\d{9}"))) {
+            new Alert(Alert.AlertType.ERROR, "Enter a correct number format").show();
+            return false;
+        }
+        return true;
     }
 
     public void btnNewOrderOnAction(ActionEvent actionEvent) throws SQLException {

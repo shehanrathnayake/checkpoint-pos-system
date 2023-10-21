@@ -94,8 +94,26 @@
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="138.0" prefHeight="59.0" prefWidth="685.0" spacing="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="140.0">
+      <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="138.0" prefHeight="59.0" prefWidth="867.0" spacing="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="140.0">
          <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="206.0" spacing="10.0">
+               <children>
+                  <Label text="Customer Phone Number">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtCustomerPhone" />
+               </children>
+            </VBox>
+            <Button fx:id="btnCustomerSearch" mnemonicParsing="false" onAction="#btnCustomerSearch">
+               <HBox.margin>
+                  <Insets top="25.0" />
+               </HBox.margin>
+            </Button>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="149.0" spacing="10.0">
                <children>
                   <Label text="Customer ID">
@@ -118,11 +136,6 @@
                   <TextField fx:id="txtCustomerName" editable="false" prefHeight="24.0" prefWidth="395.0" />
                </children>
             </VBox>
-            <Button fx:id="btnCustomerSearch" mnemonicParsing="false" onAction="#btnCustomerSearch">
-               <HBox.margin>
-                  <Insets top="25.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" layoutX="1000.0" layoutY="14.0" prefHeight="75.0" prefWidth="276.0" spacing="20.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">

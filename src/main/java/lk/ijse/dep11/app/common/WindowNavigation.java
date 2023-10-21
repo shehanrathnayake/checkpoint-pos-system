@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lk.ijse.dep11.app.controller.RegisterCustomerController;
 import lk.ijse.dep11.app.controller.UserProfileSceneController;
 import lk.ijse.dep11.app.tm.User;
 
@@ -74,6 +75,21 @@ public class WindowNavigation {
     public static void navigateToUserRolePopUpWindow() throws IOException {
         Stage stage = new Stage();
         stage.setScene(new Scene(FXMLLoader.load(WindowNavigation.class.getResource("/view/UserRoleScene.fxml"))));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public static void navigateToCustomerAdd(String phone) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowNavigation.class.getResource("/view/RegisterCustomer.fxml"));
+        AnchorPane root = fxmlLoader.load();
+
+        RegisterCustomerController registerCustomerController = fxmlLoader.getController();
+        registerCustomerController.initData(phone);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.centerOnScreen();
