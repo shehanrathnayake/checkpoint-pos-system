@@ -1,5 +1,6 @@
 package lk.ijse.dep11.app.common;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lk.ijse.dep11.app.controller.RegisterCustomerController;
 import lk.ijse.dep11.app.controller.UserProfileSceneController;
+import lk.ijse.dep11.app.tm.Customer;
 import lk.ijse.dep11.app.tm.User;
 
 import java.io.IOException;
@@ -81,18 +83,22 @@ public class WindowNavigation {
         stage.show();
     }
 
-    public static void navigateToCustomerAdd(String phone) throws IOException {
+    public static String[] navigateToCustomerAdd(String phone) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(WindowNavigation.class.getResource("/view/RegisterCustomer.fxml"));
         AnchorPane root = fxmlLoader.load();
 
         RegisterCustomerController registerCustomerController = fxmlLoader.getController();
-        registerCustomerController.initData(phone);
+        SimpleStringProperty id = new SimpleStringProperty();
+        SimpleStringProperty name = new SimpleStringProperty();
+        registerCustomerController.initData(phone, id, name);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.centerOnScreen();
-        stage.show();
+        stage.showAndWait();
+        String [] newCustomerDetail = new String[] {id.getValue(), name.getValue()};
+        return newCustomerDetail;
     }
 }

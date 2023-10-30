@@ -181,6 +181,8 @@ public class PlaceOrderSceneController {
             String customerNumber = txtCustomerPhone.getText().strip();
             List<Customer> customer = CustomerDataAccess.findCustomers(customerNumber);
             if (customer.size() == 0) {
+                txtCustomerId.clear();
+                txtCustomerName.clear();
                 Alert newAlert = new Alert(Alert.AlertType.INFORMATION, "No existing customer found. Do you want to register a new customer?");
                 ButtonType yes = new ButtonType("Yes");
                 ButtonType no = new ButtonType("No");
@@ -188,12 +190,15 @@ public class PlaceOrderSceneController {
                 newAlert.showAndWait().ifPresent(result -> {
                     if (result == yes) {
                         try {
-                            WindowNavigation.navigateToCustomerAdd(txtCustomerPhone.getText().strip());
+                            String[] newCustomerDetail =  WindowNavigation.navigateToCustomerAdd(txtCustomerPhone.getText().strip());
+                            txtCustomerId.setText(newCustomerDetail[0]);
+                            txtCustomerName.setText(newCustomerDetail[1]);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
                     }
                 });
+
             } else {
                 txtCustomerId.setText(customer.get(0).getCustomerId());
                 txtCustomerName.setText(customer.get(0).getName());

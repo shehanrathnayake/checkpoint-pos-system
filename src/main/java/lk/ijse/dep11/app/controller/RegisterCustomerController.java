@@ -1,6 +1,7 @@
 package lk.ijse.dep11.app.controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -22,6 +23,8 @@ public class RegisterCustomerController {
     public Button btnCancel;
     public AnchorPane root;
     private String phone;
+    private SimpleStringProperty id;
+    private SimpleStringProperty name;
 
     public void initialize() throws SQLException {
         Platform.runLater(()->{
@@ -35,8 +38,10 @@ public class RegisterCustomerController {
         });
     }
 
-    public void initData(String phone) {
+    public void initData(String phone, SimpleStringProperty id, SimpleStringProperty name) {
         this.phone = phone;
+        this.id = id;
+        this.name = name;
     }
     public void btnCloseOnAction(ActionEvent actionEvent) {
         ((Stage)root.getScene().getWindow()).close();
@@ -47,6 +52,8 @@ public class RegisterCustomerController {
         Customer newCustomer = new Customer(txtCustomerId.getText(), txtCustomerName.getText().strip(), txtAddress.getText().strip(), phone);
         try {
             CustomerDataAccess.setCustomer(newCustomer);
+            this.id.setValue(newCustomer.getCustomerId());
+            this.name.setValue(newCustomer.getName());
             btnClose.fire();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Couldn't establish a connection with the database").show();
