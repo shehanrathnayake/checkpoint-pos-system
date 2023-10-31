@@ -52,7 +52,7 @@
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ff8282; -fx-border-width: 1; -fx-border-color: gray; -fx-border-radius: 5; -fx-background-radius: 5;" text="CANCEL">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="26.0" prefWidth="80.0" style="-fx-border-width: 1; -fx-border-color: gray; -fx-border-radius: 5; -fx-background-radius: 5;" text="CANCEL">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

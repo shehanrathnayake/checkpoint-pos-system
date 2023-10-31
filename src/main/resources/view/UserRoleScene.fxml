@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="root" prefHeight="349.0" prefWidth="229.0" style="-fx-border-color: #0d1cf8; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.UserRoleSceneController">
    <children>
       <TableView fx:id="tblUserRole" layoutX="14.0" layoutY="136.0" prefHeight="200.0" prefWidth="200.0">
@@ -25,17 +24,20 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUserRole" />
+            <TextField fx:id="txtUserRole">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
             <HBox alignment="CENTER" prefHeight="31.0" prefWidth="200.0" spacing="15.0">
                <children>
                   <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="24.0" prefWidth="88.0" text="SAVE">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
                   <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="83.0" text="DELETE">
                      <font>
-                        <Font name="System Bold Italic" size="13.0" />
+                        <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Button>
                </children>
