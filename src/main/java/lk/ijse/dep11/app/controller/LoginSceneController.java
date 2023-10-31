@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import lk.ijse.dep11.app.common.UserDetails;
 import lk.ijse.dep11.app.db.UserDataAccess;
 import lk.ijse.dep11.app.tm.User;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,11 +31,11 @@ public class LoginSceneController {
                 txtUserId.requestFocus();
                 txtUserId.selectAll();
             }
-//            else if (!matchedUser.getPassword().equals(DigestUtils.sha256Hex(txtPassword.getText().strip()))) {
-//                new Alert(Alert.AlertType.ERROR, "UserID and password mismatched. Enter correct password").show();
-//                txtPassword.requestFocus();
-//                txtPassword.selectAll();
-//            }
+            else if (!matchedUser.getPassword().equals(DigestUtils.sha256Hex(txtPassword.getText()))) {
+                new Alert(Alert.AlertType.ERROR, "UserID and password mismatched. Enter correct password").show();
+                txtPassword.requestFocus();
+                txtPassword.selectAll();
+            }
             else {
                 String scenePath ="";
                 if (matchedUser.getUserRoleId() == 2) scenePath = "/view/PlaceOrderScene.fxml";
