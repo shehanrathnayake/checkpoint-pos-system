@@ -10,6 +10,7 @@ import lk.ijse.dep11.app.common.WindowNavigation;
 import lk.ijse.dep11.app.db.UserDataAccess;
 import lk.ijse.dep11.app.tm.User;
 import lk.ijse.dep11.app.tm.UserRole;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -71,12 +72,12 @@ public class UserProfileSceneController {
         try {
             String password = "";
             if (selectedUser== null){
-                password = txtNewPassword.getText();
+                password = DigestUtils.sha256Hex(txtNewPassword.getText());
                 User newUser = new User(userId, firstName, lastName, password, userRoleId, gender);
                 UserDataAccess.setUser(newUser);
             }
             else {
-                if (changePassword) password = txtNewPassword.getText();
+                if (changePassword) password = DigestUtils.sha256Hex(txtNewPassword.getText());
                 else password = selectedUser.getPassword();
                 User updatedUser = new User(userId, firstName, lastName, password, userRoleId, gender);
                 UserDataAccess.updateUser(updatedUser);
@@ -117,7 +118,7 @@ public class UserProfileSceneController {
             }
         } else {
             if (changePassword) {
-                if (!txtOldPassword.getText().equals(selectedUser.getPassword())) {
+                if (!DigestUtils.sha256Hex(txtOldPassword.getText()).equals(selectedUser.getPassword())) {
                     new Alert(Alert.AlertType.ERROR, "Old password you entered is incorrect.").show();
                     txtOldPassword.requestFocus();
                     txtOldPassword.selectAll();

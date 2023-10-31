@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -41,7 +42,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtPassword" />
+                  <PasswordField fx:id="txtPassword" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_CENTER" prefHeight="59.0" prefWidth="274.0" spacing="20.0">
