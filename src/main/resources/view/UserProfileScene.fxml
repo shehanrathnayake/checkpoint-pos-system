@@ -26,20 +26,26 @@
                <children>
                   <Label text="First Name">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFirstName" />
+                  <TextField fx:id="txtFirstName">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="126.0" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Last Name">
                      <font>
-                        <Font name="System Bold Italic" size="13.0" />
+                        <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtLastName" prefHeight="24.0" prefWidth="115.0" />
+                  <TextField fx:id="txtLastName" prefHeight="24.0" prefWidth="115.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                </children>
             </VBox>
          </children>
@@ -51,7 +57,7 @@
                <children>
                   <Label text="Gender">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                   <ComboBox fx:id="cmbGender" prefWidth="150.0" />
@@ -61,7 +67,7 @@
                <children>
                   <Label text="User Role">
                      <font>
-                        <Font name="System Bold Italic" size="13.0" />
+                        <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
                   <ComboBox fx:id="cmbUserRole" prefWidth="150.0" />
@@ -75,10 +81,13 @@
                <children>
                   <Label text="Old Password">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txtOldPassword" />
+                  <PasswordField fx:id="txtOldPassword">
+                     <font>
+                        <Font size="14.0" />
+                     </font></PasswordField>
                </children>
             </VBox>
          </children>
@@ -89,10 +98,13 @@
                <children>
                   <Label text="New Password">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txtNewPassword" />
+                  <PasswordField fx:id="txtNewPassword">
+                     <font>
+                        <Font size="14.0" />
+                     </font></PasswordField>
                </children>
             </VBox>
          </children>
@@ -103,29 +115,32 @@
                <children>
                   <Label text="Confirm Password">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txtConfirmPassword" />
+                  <PasswordField fx:id="txtConfirmPassword">
+                     <font>
+                        <Font size="14.0" />
+                     </font></PasswordField>
                </children>
             </VBox>
          </children>
       </HBox>
       <Label layoutX="131.0" layoutY="181.0" text="Manage Password">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" layoutX="117.0" layoutY="421.0" prefHeight="30.0" prefWidth="200.0" spacing="20.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="116.0">
          <children>
             <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="24.0" prefWidth="80.0" text="SAVE">
                <font>
-                  <Font name="System Bold Italic" size="13.0" />
+                  <Font name="System Bold Italic" size="14.0" />
                </font>
             </Button>
             <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="24.0" prefWidth="80.0" text="CANCEL">
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Button>
          </children>
@@ -135,6 +150,6 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <ToggleButton fx:id="btnChangePassword" layoutX="283.0" layoutY="178.0" mnemonicParsing="false" onAction="#btnChangePasswordOnAction" text="Change" />
+      <ToggleButton fx:id="btnChangePassword" layoutX="296.0" layoutY="178.0" mnemonicParsing="false" onAction="#btnChangePasswordOnAction" text="Change" />
    </children>
 </AnchorPane>

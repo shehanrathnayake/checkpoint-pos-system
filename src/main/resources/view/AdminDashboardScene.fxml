@@ -23,8 +23,14 @@
             </ImageView>
             <VBox alignment="CENTER" prefHeight="75.0" prefWidth="145.0" spacing="2.0">
                <children>
-                  <Label fx:id="lblUserId" prefHeight="18.0" prefWidth="145.0" text="U0001" VBox.vgrow="ALWAYS" />
-                  <Label fx:id="lblUserName" prefHeight="17.0" prefWidth="152.0" text="Shehan" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="lblUserId" prefHeight="18.0" prefWidth="145.0" text="U0001" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label fx:id="lblUserName" prefHeight="17.0" prefWidth="152.0" text="Shehan" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="27.0" prefWidth="26.0" />

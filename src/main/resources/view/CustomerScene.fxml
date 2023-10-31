@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="root" prefHeight="890.0" prefWidth="1265.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.app.controller.CustomerSceneController">
    <children>
       <HBox alignment="CENTER_RIGHT" layoutX="1014.0" layoutY="33.0" prefHeight="75.0" prefWidth="276.0" spacing="20.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
@@ -28,8 +27,14 @@
             </ImageView>
             <VBox alignment="CENTER" prefHeight="75.0" prefWidth="145.0" spacing="2.0">
                <children>
-                  <Label fx:id="lblUserId" prefHeight="18.0" prefWidth="145.0" text="U0001" VBox.vgrow="ALWAYS" />
-                  <Label fx:id="lblUserName" prefHeight="17.0" prefWidth="152.0" text="Shehan" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="lblUserId" prefHeight="18.0" prefWidth="145.0" text="U0001" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label fx:id="lblUserName" prefHeight="17.0" prefWidth="152.0" text="Shehan" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="27.0" prefWidth="26.0" />
@@ -82,45 +87,57 @@
                         <Insets />
                      </opaqueInsets>
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtCustomerId" editable="false" />
+                  <TextField fx:id="txtCustomerId" editable="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="287.0" spacing="10.0">
                <children>
                   <Label text="Name">
                      <font>
-                        <Font name="System Bold Italic" size="13.0" />
+                        <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtCustomerName" editable="false" />
+                  <TextField fx:id="txtCustomerName" editable="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="196.0" spacing="10.0">
                <children>
                   <Label text="Telephone">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtTelephone" editable="false" prefHeight="24.0" prefWidth="68.0" />
+                  <TextField fx:id="txtTelephone" editable="false" prefHeight="24.0" prefWidth="68.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="211.0" spacing="10.0">
                <children>
                   <Label text="Address">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtAddress" editable="false" prefHeight="24.0" prefWidth="89.0" />
+                  <TextField fx:id="txtAddress" editable="false" prefHeight="24.0" prefWidth="89.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
                </children>
             </VBox>
             <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="26.0" prefWidth="85.0" style="-fx-background-radius: 5; -fx-border-color: gray; -fx-border-radius: 5;" text="ADD">
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
                <HBox.margin>
                   <Insets top="25.0" />
@@ -128,7 +145,7 @@
             </Button>
             <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="26.0" prefWidth="85.0" style="-fx-background-radius: 5; -fx-border-color: gray; -fx-border-radius: 5;" text="DELETE">
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
                <HBox.margin>
                   <Insets top="25.0" />
@@ -154,10 +171,13 @@
                   <Insets />
                </opaqueInsets>
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtSearch" alignment="CENTER" prefHeight="24.0" prefWidth="291.0" />
+            <TextField fx:id="txtSearch" alignment="CENTER" prefHeight="24.0" prefWidth="291.0">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
          </children>
       </VBox>
       <Button fx:id="btnNewCustomer" layoutX="1107.0" layoutY="161.0" mnemonicParsing="false" onAction="#btnNewCustomerOnAction" prefHeight="34.0" prefWidth="184.0" text="+ NEW CUSTOMER" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="151.0">
