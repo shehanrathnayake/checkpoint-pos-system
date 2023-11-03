@@ -22,17 +22,17 @@ public class Order implements Serializable {
         return UserDataAccess.getUser(userId).getName();
     }
 
-    public String getCustomerId() throws SQLException {
-        String customerId = CustomerDataAccess.getCustomerId(orderId);
-        if (customerId==null) return "-";
-        return customerId;
-    }
-
-    public String getCustomerName() throws SQLException {
-        String customerId = getCustomerId();
-        if (customerId.equals("-")) return "-";
-        return CustomerDataAccess.findCustomers(customerId).get(0).getName();
-    }
+//    public String getCustomerId() throws SQLException {
+//        String customerId = CustomerDataAccess.getCustomerId(orderId);
+//        if (customerId==null) return "-";
+//        return customerId;
+//    }
+//
+//    public String getCustomerName() throws SQLException {
+//        String customerId = getCustomerId();
+//        if (customerId.equals("-")) return "-";
+//        return CustomerDataAccess.findCustomers(customerId).get(0).getName();
+//    }
 
     public BigDecimal getTotal() throws SQLException {
         return OrderDataAccess.getTotal(orderId);

@@ -14,10 +14,6 @@ public class UserDetails {
         UserDetails.loggedUser = loggedUser;
     }
 
-    public static User getPermittedUser() {
-        return permittedUser;
-    }
-
     public static void setPermittedUser(User permittedUser) {
         UserDetails.permittedUser = permittedUser;
     }

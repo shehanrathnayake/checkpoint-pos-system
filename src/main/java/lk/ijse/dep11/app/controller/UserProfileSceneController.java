@@ -10,6 +10,7 @@ import lk.ijse.dep11.app.common.WindowNavigation;
 import lk.ijse.dep11.app.db.UserDataAccess;
 import lk.ijse.dep11.app.tm.User;
 import lk.ijse.dep11.app.tm.UserRole;
+import net.sf.jasperreports.components.items.ItemProperty;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
@@ -30,22 +31,28 @@ public class UserProfileSceneController {
     public Button btnCancel;
     public Label txtUserId;
     public ToggleButton btnChangePassword;
-    private User selectedUser;
+    private User selectedUser = null;
     private boolean changePassword;
 
     public void initialize() {
+
         Platform.runLater(()->{
             try{
                 cmbUserRole.getItems().addAll(UserDataAccess.findUserRoles(""));
                 cmbGender.getItems().addAll(new String[]{"male", "female"});
+                txtOldPassword.setDisable(true);
+
                 if (selectedUser != null) {
                     txtUserId.setText(selectedUser.getId());
                     txtFirstName.setText(selectedUser.getFirstName());
                     txtLastName.setText(selectedUser.getLastName());
                     cmbUserRole.getSelectionModel().select(selectedUser.getUserRole());
                     cmbGender.getSelectionModel().select(selectedUser.getGender());
+
+                    txtNewPassword.setDisable(true);
+                    txtConfirmPassword.setDisable(true);
                 } else {
-                    txtOldPassword.setDisable(true);
+                    btnChangePassword.setDisable(true);
                     txtUserId.setText(String.format("U%04d",Integer.parseInt(UserDataAccess.getLastUserId().replace("U",""))+1));
                 }
             } catch (SQLException e) {
@@ -141,5 +148,11 @@ public class UserProfileSceneController {
 
     public void btnChangePasswordOnAction(ActionEvent actionEvent) {
         changePassword = btnChangePassword.isSelected();
+        System.out.println(changePassword);
+        TextField[] textItems = {txtOldPassword, txtNewPassword, txtConfirmPassword};
+        for (TextField textItem : textItems) {
+            textItem.setDisable(!btnChangePassword.isSelected());
+            textItem.clear();
+        }
     }
 }

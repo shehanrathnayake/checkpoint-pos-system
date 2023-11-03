@@ -51,7 +51,7 @@ public class PlaceOrderSceneController {
     public Button btnCustomerSearch;
     public TableView<OrderItem> tblOrderItems;
     public TextField txtTotalDiscount;
-    public ComboBox<String> cmbDiscountDecider;
+//    public ComboBox<String> cmbDiscountDecider;
     public Label lblTotal;
     public Button btnPlaceOrder;
     public Button btnNewOrder;

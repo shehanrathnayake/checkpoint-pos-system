@@ -14,22 +14,18 @@ import java.util.List;
 public class CustomerDataAccess {
     private static final PreparedStatement STM_FIND_CUSTOMERS;
     private static final PreparedStatement STM_SET_CUSTOMER;
-    private static final PreparedStatement STM_CUSTOMER_EXISTS;
     private static final PreparedStatement STM_UPDATE_CUSTOMER;
     private static final PreparedStatement STM_DELETE_CUSTOMER;
     private static final PreparedStatement STM_LAST_CUSTOMER_ID;
-    private static final PreparedStatement STM_GET_CUSTOMER_ID;
 
     static {
         Connection connection = SingleConnectionDataSource.getInstance().getConnection();
         try {
             STM_FIND_CUSTOMERS = connection.prepareStatement("SELECT * FROM customer WHERE customer_id LIKE ? OR name LIKE ? OR address LIKE ? OR phone LIKE ?");
             STM_SET_CUSTOMER = connection.prepareStatement("INSERT INTO customer (customer_id, name, address, phone) VALUES (?,?,?,?)");
-            STM_CUSTOMER_EXISTS = connection.prepareStatement("SELECT customer_id FROM customer WHERE customer_id=?");
             STM_UPDATE_CUSTOMER = connection.prepareStatement("UPDATE customer SET name=?, address=?, phone=? WHERE customer_id=?");
             STM_DELETE_CUSTOMER = connection.prepareStatement("DELETE FROM customer WHERE customer_id=?");
             STM_LAST_CUSTOMER_ID = connection.prepareStatement("SELECT customer_id FROM customer ORDER BY customer_id DESC LIMIT 1");
-            STM_GET_CUSTOMER_ID = connection.prepareStatement("SELECT customer_id FROM customer_order WHERE order_id = ?");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -79,13 +75,4 @@ public class CustomerDataAccess {
         STM_DELETE_CUSTOMER.setString(1, customerId);
         STM_DELETE_CUSTOMER.executeUpdate();
     }
-
-    public static String getCustomerId(String orderId) throws SQLException {
-        STM_GET_CUSTOMER_ID.setString(1, orderId);
-        ResultSet rst = STM_GET_CUSTOMER_ID.executeQuery();
-        if (!rst.next()) return null;
-        return rst.getString("customer_id");
-    }
-
-
 }
