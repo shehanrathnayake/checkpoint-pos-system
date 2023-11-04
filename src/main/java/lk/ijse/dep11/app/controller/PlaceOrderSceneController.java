@@ -42,7 +42,7 @@ public class PlaceOrderSceneController {
     public ComboBox<Item> cmbItemCode;
     public TextField txtStock;
     public TextField txtUnitPrice;
-    public TextField txtDiscount;
+
     public ImageView imgViewLogo;
     public TextField txtQty;
     public Button btnAdd;
@@ -50,8 +50,6 @@ public class PlaceOrderSceneController {
     public TextField txtCustomerName;
     public Button btnCustomerSearch;
     public TableView<OrderItem> tblOrderItems;
-    public TextField txtTotalDiscount;
-//    public ComboBox<String> cmbDiscountDecider;
     public Label lblTotal;
     public Button btnPlaceOrder;
     public Button btnNewOrder;
@@ -62,8 +60,8 @@ public class PlaceOrderSceneController {
     public TextField txtCustomerPhone;
 
     public void initialize() {
-        String[] orderItemColumns = {"orderItemCode", "description", "qty", "unitPrice", "discount", "total", "btnDelete"};
-        for (int i = 0; i < 7; i++) {
+        String[] orderItemColumns = {"orderItemCode", "description", "qty", "unitPrice", "total", "btnDelete"};
+        for (int i = 0; i < 6; i++) {
             tblOrderItems.getColumns().get(i).setCellValueFactory(new PropertyValueFactory<>(orderItemColumns[i]));
         }
 
@@ -218,7 +216,7 @@ public class PlaceOrderSceneController {
     }
 
     public void btnNewOrderOnAction(ActionEvent actionEvent) throws SQLException {
-        for (TextField textField : new TextField[]{txtCustomerId, txtCustomerName, txtDiscount, txtTotalDiscount, txtQty, txtStock, txtUnitPrice}) {
+        for (TextField textField : new TextField[]{txtCustomerId, txtCustomerName, txtQty, txtStock, txtUnitPrice}) {
             textField.clear();
         }
         cmbItemCode.getSelectionModel().clearSelection();
