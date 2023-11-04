@@ -7,6 +7,10 @@
 Copyright &copy; 2023 Shehan Rathnayake. All Rights Reserved.<br>
 This product is licensed under [MIT License](License.txt).
 
+### SRS Document
+
+[SRS Document](SRS-Document.pdf)
+
 ## Introduction
 
 <img src="ref-images/dashboard-mock.png" width="600px" height="auto">
@@ -24,9 +28,11 @@ In this project, I have designed a Java based POS system to streamline transacti
 - intellij IDEA
 - DataGrip
 
+<img src="ref-images/tech-stack.png" width="450px" height="auto"><br>
+
 ## Supported Links
 
-- [Comprehensive Project Story on Medium]
+- [Comprehensive Project Story on Medium](https://medium.com/@shehan_rathnayake/my-experience-in-point-of-sale-system-project-af15e4cada95) 👈
 
 ## Sample Images
 
@@ -34,7 +40,7 @@ In this project, I have designed a Java based POS system to streamline transacti
 
 <img src="ref-images/customers-scene.png" width="600px" height="auto"><br>
 
-<img src="ref-images/place-order.png" width="700px" height="auto"><br>
+<img src="ref-images/place-order.png"><br>
 
 <img src="ref-images/pos-bill.png" width="250px" height="auto"><br>
 
